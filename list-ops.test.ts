@@ -71,41 +71,41 @@ describe("returns the length of a list", () => {
   });
 });
 
-// describe('returns a list of elements whose values equal the list value transformed by the mapping function', () => {
-//   xit('empty list', () => {
-//     const list1 = new List<number>()
-//     expect(list1.map((el: number) => ++el).values).toEqual([])
-//   })
+describe("returns a list of elements whose values equal the list value transformed by the mapping function", () => {
+  it("empty list", () => {
+    const list1 = new List<number>();
+    expect(list1.map((el: number) => ++el).values).toEqual([]);
+  });
 
-//   xit('non-empty list', () => {
-//     const list1 = new List([1, 3, 5, 7])
-//     expect(list1.map((el: number) => ++el).values).toEqual([2, 4, 6, 8])
-//   })
-// })
+  it("non-empty list", () => {
+    const list1 = new List([1, 3, 5, 7]);
+    expect(list1.map((el: number) => ++el).values).toEqual([2, 4, 6, 8]);
+  });
+});
 
-// describe('folds (reduces) the given list from the left with a function', () => {
-//   xit('empty list', () => {
-//     const list1 = new List<number>()
-//     expect(list1.foldl((acc: number, el: number) => el / acc, 2)).toEqual(2)
-//   })
+describe("folds (reduces) the given list from the left with a function", () => {
+  it("empty list", () => {
+    const list1 = new List<number>();
+    expect(list1.foldl((acc: number, el: number) => el / acc, 2)).toEqual(2);
+  });
 
-//   xit('division of integers', () => {
-//     const list1 = new List([1, 2, 3, 4])
-//     expect(list1.foldl((acc: number, el: number) => el / acc, 24)).toEqual(64)
-//   })
-// })
+  it("division of integers", () => {
+    const list1 = new List([1, 2, 3, 4]);
+    expect(list1.foldl((acc: number, el: number) => el / acc, 24)).toEqual(64);
+  });
+});
 
-// describe('folds (reduces) the given list from the right with a function', () => {
-//   xit('empty list', () => {
-//     const list1 = new List<number>()
-//     expect(list1.foldr((acc: number, el: number) => el / acc, 2)).toEqual(2)
-//   })
+describe("folds (reduces) the given list from the right with a function", () => {
+  it("empty list", () => {
+    const list1 = new List<number>();
+    expect(list1.foldr((acc: number, el: number) => el / acc, 2)).toEqual(2);
+  });
 
-//   xit('division of integers', () => {
-//     const list1 = new List([1, 2, 3, 4])
-//     expect(list1.foldr((acc: number, el: number) => el / acc, 24)).toEqual(9)
-//   })
-// })
+  it("division of integers", () => {
+    const list1 = new List([1, 2, 3, 4]);
+    expect(list1.foldr((acc: number, el: number) => el / acc, 24)).toEqual(9);
+  });
+});
 
 // describe('reverse the elements of a list', () => {
 //   xit('empty list', () => {

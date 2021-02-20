@@ -33,6 +33,42 @@ class List<T> {
     }
     return counter;
   }
+
+  map(el: (el: T) => T): List<T> {
+    let mappedValues: T[] = [];
+    for (let n = 0; n < this.values.length; n++) {
+      if (this.values[n] !== undefined) {
+        mappedValues = [...mappedValues, el(this.values[n])];
+      }
+    }
+    return new List(mappedValues);
+  }
+
+  foldl(
+    divide: (acc: number, currentValue: T) => number,
+    initAcc: number
+  ): number {
+    let sum = initAcc;
+    if (this.values.length !== 0) {
+      for (let n = 0; n < this.values.length; n++) {
+        sum = divide(sum, this.values[n]);
+      }
+    }
+    return sum;
+  }
+
+  foldr(
+    divide: (acc: number, currentValue: T) => number,
+    initAcc: number
+  ): number {
+    let sum = initAcc;
+    if (this.values.length !== 0) {
+      for (let n = this.values.length - 1; n > -1; n--) {
+        sum = divide(sum, this.values[n]);
+      }
+    }
+    return sum;
+  }
 }
 
 export default List;
