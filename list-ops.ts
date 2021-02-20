@@ -1,19 +1,22 @@
 class List<T> {
-  constructor(public values: T[] = []) {}
+  public nonEmptyList: boolean;
+  constructor(public values: T[] = []) {
+    this.nonEmptyList = this.values.length !== 0;
+  }
   append(list: List<T>): List<T> {
     return new List([...this.values, ...list.values]);
   }
 
   concat(list: List<List<T>>): List<T> {
     const [list2, list3, list4] = list.values;
-    return this.values.length === 0
-      ? new List([])
-      : new List([
+    return this.nonEmptyList
+      ? new List([
           ...this.values,
           ...list2.values,
           ...list3.values,
           ...list4.values,
-        ]);
+        ])
+      : new List([]);
   }
 
   filter(el: (el: T) => boolean): List<T> {
@@ -49,7 +52,7 @@ class List<T> {
     initAcc: number
   ): number {
     let sum = initAcc;
-    if (this.values.length !== 0) {
+    if (this.nonEmptyList) {
       for (let n = 0; n < this.values.length; n++) {
         sum = divide(sum, this.values[n]);
       }
@@ -62,12 +65,20 @@ class List<T> {
     initAcc: number
   ): number {
     let sum = initAcc;
-    if (this.values.length !== 0) {
+    if (this.nonEmptyList) {
       for (let n = this.values.length - 1; n > -1; n--) {
         sum = divide(sum, this.values[n]);
       }
     }
     return sum;
+  }
+
+  reverse(): List<T> {
+    let reversedArray: T[] = [];
+    for (let n = this.values.length - 1; n > -1; n--) {
+      reversedArray = [...reversedArray, this.values[n]];
+    }
+    return new List(reversedArray);
   }
 }
 
