@@ -8,15 +8,11 @@ class List<T> {
   }
 
   concat(list: List<List<T>>): List<T> {
-    const [list2, list3, list4] = list.values;
-    return this.nonEmptyList
-      ? new List([
-          ...this.values,
-          ...list2.values,
-          ...list3.values,
-          ...list4.values,
-        ])
-      : new List([]);
+    let concatArray: T[] = [];
+    for (let i = 0; i < list.length(); i++) {
+      concatArray = [...concatArray, ...list.values[i].values];
+    }
+    return this.append(new List(concatArray));
   }
 
   filter(el: (el: T) => boolean): List<T> {
