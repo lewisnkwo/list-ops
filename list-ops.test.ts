@@ -1,5 +1,24 @@
 import List from "./list-ops";
 
+describe("playground", () => {
+  it("maps from number to number", () => {
+    const list1 = new List([1, 2, 3, 4]);
+    expect(list1.map((el) => el * el)).toEqual(new List([1, 4, 9, 16]));
+  });
+  it("maps from number to string", () => {
+    const list1 = new List([1, 2, 3]);
+    expect(list1.map((el) => (el + 1).toString())).toEqual(
+      new List(["2", "3", "4"])
+    );
+  });
+  it("more complex logic", () => {
+    const list1 = new List([1, 2, 3]);
+    expect(
+      list1.map((el) => (el + 1).toString()).filter((x) => Number(x) <= 3)
+    ).toEqual(new List(["2", "3"]));
+  });
+});
+
 describe("append entries to a list and return the new list", () => {
   it("empty lists", () => {
     const list1 = new List();

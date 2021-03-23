@@ -16,15 +16,15 @@ class List<T> {
     return this.append(new List(concatArray));
   }
 
-  filter(el: (el: T) => boolean): List<T> {
-    let filteredValues: T[] = [];
-    for (let n = 0; n < this.values.length; n++) {
-      if (el(this.values[n])) {
-        filteredValues = [...filteredValues, this.values[n]];
-      }
-    }
-    return new List(filteredValues);
-  }
+  // filter(el: (el: T) => boolean): List<T> {
+  //   let filteredValues: T[] = [];
+  //   for (let n = 0; n < this.values.length; n++) {
+  //     if (el(this.values[n])) {
+  //       filteredValues = [...filteredValues, this.values[n]];
+  //     }
+  //   }
+  //   return new List(filteredValues);
+  // }
 
   // length(): number {
   //   let counter = 0;
@@ -34,25 +34,37 @@ class List<T> {
   //   return counter;
   // }
 
-  map(el: (el: T) => T): List<T> {
-    let mappedValues: T[] = [];
-    for (let n = 0; n < this.values.length; n++) {
-      if (this.values[n] !== undefined) {
-        mappedValues = [...mappedValues, el(this.values[n])];
-      }
-    }
-    return new List(mappedValues);
-  }
+  // map<U>(el: (el: T) => U): List<U> {
+  //   let mappedValues: U[] = [];
+  //   for (let n = 0; n < this.values.length; n++) {
+  //     if (this.values[n] !== undefined) {
+  //       mappedValues = [...mappedValues, el(this.values[n])];
+  //     }
+  //   }
+  //   return new List(mappedValues);
+  // }
   // use append instead of spread ^^^^
+
+  map<U>(el: (el: T) => U): List<U> {
+    return this.foldl(
+      (acc, currentValue) => acc.append(new List([el(currentValue)])),
+      new List<U>()
+    );
+  }
+
+  filter(el: (el: T) => boolean): List<T> {
+    return this.foldl(
+      (acc, currentValue) =>
+        el(currentValue) ? acc.append(new List([currentValue])) : acc,
+      new List<T>()
+    );
+  }
 
   length(): number {
     return this.foldl((acc, _) => acc + 1, 0);
   }
 
-  foldl(
-    divide: (acc: number, currentValue: T) => number,
-    initAcc: number
-  ): number {
+  foldl<U>(divide: (acc: U, currentValue: T) => U, initAcc: U): U {
     let sum = initAcc;
     if (this.nonEmptyList) {
       for (let n = 0; n < this.values.length; n++) {
@@ -62,10 +74,7 @@ class List<T> {
     return sum;
   }
 
-  foldr(
-    divide: (acc: number, currentValue: T) => number,
-    initAcc: number
-  ): number {
+  foldr<U>(divide: (acc: U, currentValue: T) => U, initAcc: U): U {
     let sum = initAcc;
     if (this.nonEmptyList) {
       for (let n = this.values.length - 1; n > -1; n--) {
