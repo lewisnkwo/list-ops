@@ -3,6 +3,7 @@ class List<T> {
   constructor(public values: T[] = []) {
     this.nonEmptyList = this.values.length !== 0;
   }
+
   append(list: List<T>): List<T> {
     return new List([...this.values, ...list.values]);
   }
@@ -25,13 +26,13 @@ class List<T> {
     return new List(filteredValues);
   }
 
-  length(): number {
-    let counter = 0;
-    for (let n = 0; n < this.values.length; n++) {
-      counter++;
-    }
-    return counter;
-  }
+  // length(): number {
+  //   let counter = 0;
+  //   for (let n = 0; n < this.values.length; n++) {
+  //     counter++;
+  //   }
+  //   return counter;
+  // }
 
   map(el: (el: T) => T): List<T> {
     let mappedValues: T[] = [];
@@ -41,6 +42,11 @@ class List<T> {
       }
     }
     return new List(mappedValues);
+  }
+  // use append instead of spread ^^^^
+
+  length(): number {
+    return this.foldl((acc, _) => acc + 1, 0);
   }
 
   foldl(
