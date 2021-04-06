@@ -16,35 +16,6 @@ class List<T> {
     return this.append(new List(concatArray));
   }
 
-  // filter(el: (el: T) => boolean): List<T> {
-  //   let filteredValues: T[] = [];
-  //   for (let n = 0; n < this.values.length; n++) {
-  //     if (el(this.values[n])) {
-  //       filteredValues = [...filteredValues, this.values[n]];
-  //     }
-  //   }
-  //   return new List(filteredValues);
-  // }
-
-  // length(): number {
-  //   let counter = 0;
-  //   for (let n = 0; n < this.values.length; n++) {
-  //     counter++;
-  //   }
-  //   return counter;
-  // }
-
-  // map<U>(el: (el: T) => U): List<U> {
-  //   let mappedValues: U[] = [];
-  //   for (let n = 0; n < this.values.length; n++) {
-  //     if (this.values[n] !== undefined) {
-  //       mappedValues = [...mappedValues, el(this.values[n])];
-  //     }
-  //   }
-  //   return new List(mappedValues);
-  // }
-  // use append instead of spread ^^^^
-
   map<U>(el: (el: T) => U): List<U> {
     return this.foldl(
       (acc, currentValue) => acc.append(new List([el(currentValue)])),
